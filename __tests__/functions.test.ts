@@ -41,12 +41,12 @@ jest.mock("firebase-admin", () => ({
 
 jest.mock("messagebird", () => ({
   initClient: () => ({
-  conversations: {
-    start: (payload, callback) => {
-      callback(null, { id: "fakeConversationsResponse" });
+    conversations: {
+      start: (payload, callback) => {
+        callback(null, { id: "fakeConversationsResponse" });
+      },
     },
-  },
-})
+  }),
 }));
 
 describe("firestore-messagebird-send-msg", () => {
