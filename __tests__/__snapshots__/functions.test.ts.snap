@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`firestore-messagebird-send-msg functions configuration detected from environment variables 1`] = `
-Object {
+{
   "accessKey": "aaa",
   "location": "europe-west1",
   "logLevel": "warn",
