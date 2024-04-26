@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -52,7 +56,7 @@ function initialize() {
     (0, log_1.logInfo)("initializing db...");
     db = admin.firestore();
     (0, log_1.logInfo)("initializing mb api client...");
-    mb = (0, messagebird_1.default)(config_1.default.accessKey, undefined, ["ENABLE_FIREBASE_PLUGIN"]);
+    mb = messagebird_1.default.initClient(config_1.default.accessKey, undefined, ["ENABLE_FIREBASE_PLUGIN"]);
     (0, log_1.logInfo)("initialization finished successfully");
 }
 function deliver(payload, ref) {
@@ -165,7 +169,7 @@ function processWrite(change) {
         }
     });
 }
-exports.processQueue = functions.handler.firestore.document.onWrite((change) => __awaiter(void 0, void 0, void 0, function* () {
+exports.processQueue = functions.firestore.document(config_1.default.msgCollection + '/{msgId}').onWrite((change) => __awaiter(void 0, void 0, void 0, function* () {
     initialize();
     try {
         yield processWrite(change);

@@ -35,7 +35,7 @@ function initialize() {
   logInfo("initializing db...");
   db = admin.firestore();
   logInfo("initializing mb api client...");
-  mb = messagebird(config.accessKey, undefined, ["ENABLE_FIREBASE_PLUGIN"]);
+  mb = messagebird.initClient(config.accessKey, undefined, ["ENABLE_FIREBASE_PLUGIN"]);
   logInfo("initialization finished successfully");
 }
 
@@ -164,7 +164,7 @@ async function processWrite(
   }
 }
 
-export const processQueue = functions.handler.firestore.document.onWrite(
+export const processQueue = functions.firestore.document(config.msgCollection + '/{msgId}').onWrite(
   async (change) => {
     initialize();
     try {

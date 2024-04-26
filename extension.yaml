@@ -43,7 +43,7 @@ resources:
     properties:
       sourceDirectory: .
       location: ${LOCATION}
-      runtime: nodejs10
+      runtime: nodejs18
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
         resource: projects/${PROJECT_ID}/databases/(default)/documents/${MSG_COLLECTION}/{id}
